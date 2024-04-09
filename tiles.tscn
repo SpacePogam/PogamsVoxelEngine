@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxnlrx4ckl2gh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03ni0"]
+albedo_color = Color(0.0117647, 0.4, 0.0196078, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4g3p6"]
+material = SubResource("StandardMaterial3D_03ni0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xxh0y"]
+size = Vector3(0.999, 0.999, 0.999)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwdof"]
+albedo_color = Color(0.188235, 0.105882, 0.0509804, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2kskx"]
+material = SubResource("StandardMaterial3D_rwdof")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_abkhf"]
+albedo_color = Color(0.270588, 0.247059, 0.235294, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qmm3o"]
+material = SubResource("StandardMaterial3D_abkhf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhqoo"]
+transparency = 1
+albedo_color = Color(0.0117647, 0.4, 0.0196078, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i7h1y"]
+material = SubResource("StandardMaterial3D_dhqoo")
+
+[node name="tiles" type="Node3D"]
+
+[node name="grass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+mesh = SubResource("BoxMesh_4g3p6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="grass"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="grass/StaticBody3D"]
+shape = SubResource("BoxShape3D_xxh0y")
+
+[node name="dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1.5)
+mesh = SubResource("BoxMesh_2kskx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="dirt"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dirt/StaticBody3D"]
+shape = SubResource("BoxShape3D_xxh0y")
+
+[node name="stone" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -3.5)
+mesh = SubResource("BoxMesh_qmm3o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="stone"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="stone/StaticBody3D"]
+shape = SubResource("BoxShape3D_xxh0y")
+
+[node name="testforCol" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 2.5)
+mesh = SubResource("BoxMesh_i7h1y")
+
+[node name="Area3D" type="Area3D" parent="testforCol"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="testforCol/Area3D"]
+shape = SubResource("BoxShape3D_xxh0y")

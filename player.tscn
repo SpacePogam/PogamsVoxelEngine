@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxn666m5c7d2s"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_ylk0h"]
+[ext_resource type="Texture2D" uid="uid://df80vx25t8wa1" path="res://img/crosshair.png" id="2_xjqxb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yidbj"]
+size = Vector3(0.7, 1.8, 0.7)
+
+[sub_resource type="Gradient" id="Gradient_5xpqr"]
+colors = PackedColorArray(1, 1, 1, 1, 0.44, 0.44, 0.44, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_02ns6"]
+gradient = SubResource("Gradient_5xpqr")
+width = 256
+height = 256
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
+repeat = 1
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_hnimb"]
+panorama = SubResource("GradientTexture2D_02ns6")
+
+[sub_resource type="Sky" id="Sky_2jx3c"]
+sky_material = SubResource("PanoramaSkyMaterial_hnimb")
+
+[sub_resource type="Environment" id="Environment_7cli7"]
+background_mode = 1
+background_color = Color(0.298039, 0.592157, 0.709804, 1)
+background_energy_multiplier = 1.2
+sky = SubResource("Sky_2jx3c")
+ambient_light_source = 3
+ambient_light_color = Color(0.764706, 0.764706, 0.764706, 1)
+reflected_light_source = 2
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ylk0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_yidbj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+environment = SubResource("Environment_7cli7")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+visible = false
+target_position = Vector3(0, 0, -4.5)
+
+[node name="Tip" type="MeshInstance3D" parent="Camera3D/RayCast3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+skeleton = NodePath("../..")
+
+[node name="crosshair" type="TextureRect" parent="Camera3D"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xjqxb")
